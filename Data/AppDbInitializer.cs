@@ -10,10 +10,11 @@ namespace FreshBooks.Data
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetService<BookDbContext>();
-                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+                //context.Database.EnsureDeleted();
 
                 //Books
-                if(!context.Book.Any())
+                if (!context.Book.Any())
                 {
                     context.Book.AddRange(new List<Book>()
                     {
@@ -127,34 +128,7 @@ namespace FreshBooks.Data
                     });
                     context.SaveChanges();
                 }
-                //Subject
-                if (!context.Subject.Any())
-                {
-                    context.Subject.AddRange(new List<Subject>()
-                    {
-                        new Subject()
-                        {
-                            Subjects = "Information Technology"
-                        },
-                        new Subject()
-                        {
-                            Subjects = "Information Technology"
-                        },
-                        new Subject()
-                        {
-                            Subjects = "Information Technology"
-                        },
-                        new Subject()
-                        {
-                            Subjects = "Information Technology"
-                        },
-                        new Subject()
-                        {
-                            Subjects = "Information Technology"
-                        }
-                    });
-                    context.SaveChanges();
-                }
+               
             }
         }
     }
