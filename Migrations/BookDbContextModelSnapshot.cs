@@ -77,6 +77,9 @@ namespace FreshBooks.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -87,10 +90,27 @@ namespace FreshBooks.Migrations
 
                     b.HasKey("BookId");
 
+                    b.HasIndex("SubjectId");
 
                     b.ToTable("Book");
                 });
 
+            modelBuilder.Entity("FreshBooks.Models.Subject", b =>
+                {
+                    b.Property<int>("SubjectId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubjectId"));
+
+                    b.Property<string>("Subjects")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SubjectId");
+
+                    b.ToTable("Subject");
+                });
 
             modelBuilder.Entity("FreshBooks.Models.Author_Books", b =>
                 {
@@ -111,7 +131,16 @@ namespace FreshBooks.Migrations
                     b.Navigation("Book");
                 });
 
-      
+            modelBuilder.Entity("FreshBooks.Models.Book", b =>
+                {
+                    b.HasOne("FreshBooks.Models.Subject", "Subject")
+                        .WithMany("Books")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Subject");
+                });
 
             modelBuilder.Entity("FreshBooks.Models.Author", b =>
                 {
@@ -123,7 +152,10 @@ namespace FreshBooks.Migrations
                     b.Navigation("Author_Books");
                 });
 
-       
+            modelBuilder.Entity("FreshBooks.Models.Subject", b =>
+                {
+                    b.Navigation("Books");
+                });
 #pragma warning restore 612, 618
         }
     }

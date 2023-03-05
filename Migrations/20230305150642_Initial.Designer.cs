@@ -32,7 +32,7 @@ namespace FreshBooks.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AuthorId"));
 
-                    b.Property<string>("Bio")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -59,6 +59,7 @@ namespace FreshBooks.Migrations
 
                     b.ToTable("Author_Books");
                 });
+
 
             modelBuilder.Entity("FreshBooks.Models.Book", b =>
                 {
