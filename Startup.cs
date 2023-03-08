@@ -49,7 +49,7 @@ namespace FreshBook
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Search}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
 
